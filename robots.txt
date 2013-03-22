@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://zuichu5287.github.com/sitemap.xml 

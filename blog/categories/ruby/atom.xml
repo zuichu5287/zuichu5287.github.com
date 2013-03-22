@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | Shadow blog]]></title>
+  <link href="http://zuichu5287.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://zuichu5287.github.com/"/>
+  <updated>2013-03-22T10:36:56+08:00</updated>
+  <id>http://zuichu5287.github.com/</id>
+  <author>
+    <name><![CDATA[songchen]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ Net::HTTP Cheat Sheet]]></title>
+    <link href="http://zuichu5287.github.com/blog/2013/03/22/net-http-cheat-sheet/"/>
+    <updated>2013-03-22T09:21:00+08:00</updated>
+    <id>http://zuichu5287.github.com/blog/2013/03/22/net-http-cheat-sheet</id>
+    <content type="html"><![CDATA[<h1>Standard HTTP Request</h1>
+
+<pre><code>require "net/http"
+require "uri"
+
+uri = URI.parse("http://google.com/")
+</code></pre>
+
+<h2>Shortcut</h2>
+
+<pre><code>response = Net::HTTP.get_response(uri)
+</code></pre>
+
+<h2>Will print response.body</h2>
+
+<pre><code>Net::HTTP.get_print(uri)
+</code></pre>
+
+<h2>Full</h2>
+
+<pre><code>http = Net::HTTP.new(uri.host, uri.port)
+response = http.request(Net::HTTP::Get.new(uri.request_uri))
+</code></pre>
+
+<h1>Basic Auth</h1>
+
+<pre><code>require "net/http"
+require "uri"
+
+uri = URI.parse("http://google.com/")
+
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth("username", "password")
+response = http.request(request)
+</code></pre>
+
+<h1>Dealing with response objects</h1>
+
+<pre><code>require "net/http"
+require "uri"
+
+uri = URI.parse("http://google.com/")
+
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Get.new(uri.request_uri)
+
+response = http.request(request)
+
+response.code             # =&gt; 301
+response.body             # =&gt; The body (HTML, XML, blob, whatever)
+# Headers are lowercased 
+response["cache-control"] # =&gt; public, max-age=2592000
+</code></pre>
+
+<h1>POST form request</h1>
+
+<pre><code>require "net/http"
+require "uri"
+
+uri = URI.parse("http://example.com/search")
+
+# Shortcut
+response = Net::HTTP.post_form(uri, {"q" =&gt; "My query", "per_page" =&gt; "50"})
+
+# Full control
+http = Net::HTTP.new(uri.host, uri.port)
+
+request = Net::HTTP::Post.new(uri.request_uri)
+request.set_form_data({"q" =&gt; "My query", "per_page" =&gt; "50"})
+
+response = http.request(request)
+</code></pre>
+
+<h1>File upload - input type="file" style</h1>
+
+<pre><code>require "net/http"
+require "uri"
+
+# Token used to terminate the file in the post body. Make sure it is not
+# present in the file you're uploading.
+BOUNDARY = "AaB03x"
+
+uri = URI.parse("http://something.com/uploads")
+file = "/path/to/your/testfile.txt"
+
+post_body = []
+post_body &lt; &lt; "--#{BOUNDARY}\r\n"
+post_body &lt; &lt; "Content-Disposition: form-data; name=\"datafile\"; filename=\"#{File.basename(file)}\"\r\n"
+post_body &lt; &lt; "Content-Type: text/plain\r\n"
+post_body &lt; &lt; "\r\n"
+post_body &lt; &lt; File.read(file)
+post_body &lt; &lt; "\r\n--#{BOUNDARY}--\r\n"
+
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri)
+request.body = post_body.join
+request["Content-Type"] = "multipart/form-data, boundary=#{BOUNDARY}"
+
+http.request(request)
+</code></pre>
+
+<h1>SSL/HTTPS request</h1>
+
+<pre><code>require "net/https"
+require "uri"
+
+uri = URI.parse("https://secure.com/")
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+request = Net::HTTP::Get.new(uri.request_uri)
+
+response = http.request(request)
+response.body
+response.status
+response["header-here"] # All headers are lowercase
+</code></pre>
+
+<h1>REST methods</h1>
+
+<pre><code># Basic REST.
+# Most REST APIs will set semantic values in response.body and response.code.
+require "net/http"
+
+http = Net::HTTP.new("api.restsite.com")
+
+request = Net::HTTP::Post.new("/users")
+request.set_form_data({"users[login]" =&gt; "quentin"})
+response = http.request(request)
+# Use nokogiri, hpricot, etc to parse response.body.
+
+request = Net::HTTP::Get.new("/users/1")
+response = http.request(request)
+# As with POST, the data is in response.body.
+
+request = Net::HTTP::Put.new("/users/1")
+request.set_form_data({"users[login]" =&gt; "changed"})
+response = http.request(request)
+
+request = Net::HTTP::Delete.new("/users/1")
+response = http.request(request)
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

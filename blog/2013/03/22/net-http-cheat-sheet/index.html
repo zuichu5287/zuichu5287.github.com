@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Shadow blog</title>
+  <title> Net::HTTP Cheat Sheet - Shadow blog</title>
   <meta name="author" content="songchen">
 
   
@@ -19,7 +19,7 @@ require "uri" uri = URI.parse("http://google.com/") Shortcut response = Net::HTT
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://zuichu5287.github.com">
+  <link rel="canonical" href="http://zuichu5287.github.com/blog/2013/03/22/net-http-cheat-sheet">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Shadow blog" type="application/atom+xml">
@@ -64,15 +64,12 @@ require "uri" uri = URI.parse("http://google.com/") Shortcut response = Net::HTT
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/03/22/net-http-cheat-sheet/">Net::HTTP Cheat Sheet</a></h1>
+      <h1 class="entry-title">Net::HTTP Cheat Sheet</h1>
     
     
       <p class="meta">
@@ -95,7 +92,7 @@ require "uri" uri = URI.parse("http://google.com/") Shortcut response = Net::HTT
   </header>
 
 
-  <div class="entry-content"><h1>Standard HTTP Request</h1>
+<div class="entry-content"><h1>Standard HTTP Request</h1>
 
 <pre><code>require "net/http"
 require "uri"
@@ -240,18 +237,57 @@ request = Net::HTTP::Delete.new("/users/1")
 response = http.request(request)
 </code></pre>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">songchen</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2013-03-22T09:21:00+08:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
   
-  <div class="pagination">
+    <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zuichu5287.github.com/blog/2013/03/22/net-http-cheat-sheet/" data-via="" data-counturl="http://zuichu5287.github.com/blog/2013/03/22/net-http-cheat-sheet/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -271,6 +307,7 @@ response = http.request(request)
 
   
 </aside>
+
 
     </div>
   </div>
